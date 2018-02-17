@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./polarbears.css">
+    <title>Polar Bears</title>
+</head>
+
+<body style="background-color: rgb(209, 45, 173);">
+    <div id='title'>
+        <h1>Polar Bears</h1>
+    </div>
+    <div id="nav">
+        <ul>
+            <li>
+                <a href="./home.html">Home</a>
+            </li>
+            <li>
+                <a href="./games.html">Games</a>
+            </li>
+            <li>
+                <a href="./Restaurants.html">Restaurants</a>
+            </li>
+            <li>
+                <a href="./funplaces.html">Fun Places</a>
+            </li>
+            <li>
+                <a href="./polarbears.html">Polar Bears</a>
+            </li>
+        </ul>
+        <br />
+        <div class="btmnav">
+            <button class="btnadvance" onclick="advance()"> Advance Slide >>></button>
+            <button class="btnreverse" onclick="reverse()">&lt;&lt;&lt; Reverse Slide</button>
+        </div>
+    </div>
+    <br>
+
+    <div class="maincontainer">
+
+        <div class="slidecontainer">
+            <div id="1" class="slide">
+                <img src="http://www.oceana.ca/sites/default/files/shared_imce/polar_bear_mom_and_cub.jpg" />
+                <div class="imgtext">
+                    Polar bears aren’t white. A polar bear’s skin is black and its fur is transparent with a hollow core that reflects and refracts
+                    light from the sun and off the snow, making it appear white. This adaptation helps polar bears keep warm
+                    as their fur reflects heat from the sun down the hair shaft so that it can be absorbed by their black
+                    skin.
+                </div>
+                <br />
+            </div>
+            <div id="2" class="slide">
+                <img src="https://www.earthrangers.com/public/content/wildwire/polar_bear_water_credit_mape_s.jpg" />
+                <div class="imgtext">
+                    A Polar bear’s coat has two layers of hair: an outer layer, made up of long (5-15cm) guard hairs; and a thick undercoat,
+                    made up of shorter hair.
+                </div>
+                <br />
+            </div>
+            <div id="3" class="slide">
+                <img src="https://i2.wp.com/zooologist.com/wp-content/uploads/2017/07/how-far-can-a-polar-bear-smell-e1499248634306.jpg?resize=600%2C400"
+                />
+                <div class="imgtext">
+                    The height of the polar bear from the ground when it is standing on all of its four legs is 1 to 1.6 meter which is equal
+                    4 to 5.3 feet.
+                </div>
+                <br />
+            </div>
+            <div id="4" class="slide">
+                <img src="https://polarbearfacts.net/wp-content/uploads/2017/10/polar-bears-8.jpg" />
+                <div class="imgtext">
+                    A full grown polar bear weighs as much as 350–700 kg (772–1,543 lb) but the average weight measure around 385 to 410 kg (849
+                    to 904 lb). Males attain this much weight when they are 10 years of age. Kodiak bears are slightly heavier
+                    than adult white bears
+                </div>
+                <br />
+            </div>
+            <div id="5" class="slide">
+                <!-- SPECIAL DONT COPY anythiing between the green special tags!!!!!!!-->
+                <div style="position: relative" class="imgtext">
+                    <img src="http://www.oceana.ca/sites/default/files/shared_imce/polar_bear_walking_ice.jpg" />
+                    <div style="position: absolute; left:0px; bottom:5px; width:120px; height: 20px; background-color: white; border:1px solid white; border-radius:10px;"></div>
+                </div>
+                <div class="imgtext">
+                    The bottom of a polar bear’s footpads are covered by small bumps, called papillae, which help them to grip the ice and avoid
+                    slipping. The tufts of fur between their toes also help with this task, making them “slip resistant.”
+                    Polar bears also have extremely thick, sharp and strong claws, which they can use to help gain further
+                    traction when walking on ice.
+                </div>
+                <br />
+            </div>
+            <!-- SPECIAL -->
+            <div id="6" class="slide">
+                <img src="https://polarbearfacts.net/wp-content/uploads/2017/10/polar-bear-35.jpg" />
+                <div class="imgtext">
+                    Polar bears likely consume ringed seals (including pups) more readily as compared to bearded seals. They are thought to hunt
+                    in the direction of the wind precisely because bears sniff out all along on the sea ice. April is the
+                    ideal month when bear must look out ringed seal’s pups. Polar bears crush and eat the head of a pup if
+                    she is too hungry else the bear just leaves the head
+                </div>
+                <br />
+            </div>
+            <div id="7" class="slide">
+                <img src="https://img.purch.com/h/1400/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzAxOC8xNTIvb3JpZ2luYWwvYmVhcjEuanBn"
+                />
+                <div class="imgtext">
+                    Polar bears can swim for days, covering hundreds of miles of open water at a time, accoding to new GPS tracking data. These
+                    long swims appear to be a response to declining summer sea ice in the Arctic, the researchers suggest.
+                </div>
+                <br />
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+        var adder = 1;
+        function rv(myadder) {
+            console.log("myadder +1: " + (parseInt(myadder) + 1));
+            if (myadder >= 2) {
+                if (myadder == 6) {
+                    document.getElementsByClassName("btnadvance")[0].style.display = "block";
+                }
+                document.getElementById((parseInt(myadder) + 1)).style.left = "-200%";
+                document.getElementById((parseInt(myadder) + 1)).style.opacity = "0";
+                document.getElementById(myadder).style.left = "0px";
+                document.getElementById(myadder).style.opacity = "1";
+            }
+            else {
+                document.getElementsByClassName("btnreverse")[0].style.display = "none";
+                document.getElementsByClassName("btnadvance")[0].style.float = "none";
+                document.getElementById((parseInt(myadder) + 1)).style.left = "-200%";
+                document.getElementById((parseInt(myadder) + 1)).style.opacity = "0";
+                document.getElementById(myadder).style.left = "0px";
+                document.getElementById(myadder).style.opacity = "1";
+            }
+            adder = myadder;
+        }
+        function ad(myadder) {
+
+            document.getElementsByClassName("btnreverse")[0].style.display = "block";
+            document.getElementsByClassName("btnadvance")[0].style.float = "right";
+            if (myadder == 7) {
+                document.getElementsByClassName("btnadvance")[0].style.display = "none";
+            }
+            if (myadder == 1) {
+                document.getElementById(myadder).style.left = "0px";
+                document.getElementById(myadder).style.opacity = "1";
+            }
+            else {
+                document.getElementById((parseInt(myadder) - 1)).style.left = "200%";
+                document.getElementById((parseInt(myadder) - 1)).style.opacity = "0";
+                document.getElementById(myadder).style.left = "0px";
+                document.getElementById(myadder).style.opacity = "1";
+            }
+            adder = myadder
+        }
+
+        $(function () {
+            socket.on('chat message', function (msg) {
+                console.log(msg);
+                const myadder = msg.split("-")[1];
+                const mydirection = msg.split("-")[0];
+                if (mydirection == "rv") {
+                    rv(myadder);
+                }
+                else if (mydirection == "ad") {
+                    ad(myadder);
+                }
+            });
+            document.getElementById(adder).style.left = "0px";
+            document.getElementById(adder).style.opacity = "1";
+        });
+        function advance() {
+            if (adder <= 6) {
+                adder++;
+
+                socket.emit('chat message', "ad-" + adder);
+            }
+        }
+        function reverse() {
+            adder--;
+            socket.emit('chat message', "rv-" + adder);
+
+
+        }
+
+    </script>
+</body>
+
+</html>
