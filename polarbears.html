@@ -36,6 +36,11 @@
             <button class="btnadvance" onclick="advance()"> Advance Slide >>></button>
             <button class="btnreverse" onclick="reverse()">&lt;&lt;&lt; Reverse Slide</button>
         </div>
+        <div>
+            <button onclick="playsound">
+                play
+            </button>
+        </div>
     </div>
     <br>
 
@@ -115,6 +120,8 @@
         </div>
 
     </div>
+    <audio controls>
+        <source src="./doorbell.mp3" type="audio/mp3"> Your browser does not support the audio element. </audio>
     <script>
 
     </script>
@@ -189,10 +196,12 @@
         function reverse() {
             adder--;
             socket.emit('chat message', "rv-" + adder);
-
-
         }
-
+        function playsound() {
+            var audio = document.getElementsByTagName("audio")[0];
+            audio.currentTime = 0;
+            audio.play();
+        }
     </script>
 </body>
 
