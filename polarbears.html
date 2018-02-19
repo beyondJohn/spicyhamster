@@ -11,10 +11,15 @@
 
 <body style="background-color: rgb(209, 45, 173);">
     <div id='title'>
-        <h1>Polar Bears</h1>
+        <h1 onclick="gohome()">Polar Bears</h1>
     </div>
+    <script>
+        function gohome(){
+            window.location.href = "./home.html";
+        }
+    </script>
     <div id="nav">
-        <ul>
+        <!-- <ul>
             <li>
                 <a href="./home.html">Home</a>
             </li>
@@ -30,23 +35,24 @@
             <li>
                 <a href="./polarbears.html">Polar Bears</a>
             </li>
-        </ul>
+        </ul> -->
         <br />
         <div class="btmnav">
             <button class="btnadvance" onclick="advance()"> Advance Slide >>></button>
             <button class="btnreverse" onclick="reverse()">&lt;&lt;&lt; Reverse Slide</button>
         </div>
-        <div>
-            <button onclick="playsound">
+        <!-- <div id="play" style=" position:relative; text-align:center; width:100%; margin-left:250px;">
+            <button onclick="playemit()">
                 play
             </button>
-        </div>
+        </div> -->
+
     </div>
     <br>
 
     <div class="maincontainer">
 
-        <div class="slidecontainer">
+        <div class="slidecontainer" onclick="playemit()">
             <div id="1" class="slide">
                 <img src="http://www.oceana.ca/sites/default/files/shared_imce/polar_bear_mom_and_cub.jpg" />
                 <div class="imgtext">
@@ -117,11 +123,26 @@
                 </div>
                 <br />
             </div>
+
         </div>
 
     </div>
-    <audio controls>
-        <source src="./doorbell.mp3" type="audio/mp3"> Your browser does not support the audio element. </audio>
+    <audio controls style="display:none;">
+        <source src="./1.mp4" type="audio/mp4">
+        <source src="./1.mp3" type="audio/mp3"> Your browser does not support the audio element.
+    </audio>
+    <audio controls style="display:none;">
+        <source src="./2.mp4" type="audio/mp4">
+        <source src="./2.mp3" type="audio/mp3"> Your browser does not support the audio element.
+    </audio>
+    <audio controls style="display:none;">
+        <source src="./3.mp4" type="audio/mp4">
+        <source src="./3.mp3" type="audio/mp3"> Your browser does not support the audio element.
+    </audio>
+    <audio controls style="display:none;">
+        <source src="./4.mp4" type="audio/mp4">
+        <source src="./4.mp3" type="audio/mp3"> Your browser does not support the audio element.
+    </audio>
     <script>
 
     </script>
@@ -131,7 +152,9 @@
         var socket = io();
         var adder = 1;
         function rv(myadder) {
-            console.log("myadder +1: " + (parseInt(myadder) + 1));
+            if (audio != undefined) {
+                audio.pause();
+            }
             if (myadder >= 2) {
                 if (myadder == 6) {
                     document.getElementsByClassName("btnadvance")[0].style.display = "block";
@@ -152,7 +175,9 @@
             adder = myadder;
         }
         function ad(myadder) {
-
+            if (audio != undefined) {
+                audio.pause();
+            }
             document.getElementsByClassName("btnreverse")[0].style.display = "block";
             document.getElementsByClassName("btnadvance")[0].style.float = "right";
             if (myadder == 7) {
@@ -170,7 +195,16 @@
             }
             adder = myadder
         }
+        function playaudio() {
+            var adderaudio = parseInt(adder) - 1;
 
+            if (audio != undefined) {
+                audio.pause();
+            }
+            audio = document.getElementsByTagName("audio")[adderaudio];
+            audio.currentTime = 0;
+            audio.play();
+        }
         $(function () {
             socket.on('chat message', function (msg) {
                 console.log(msg);
@@ -182,10 +216,14 @@
                 else if (mydirection == "ad") {
                     ad(myadder);
                 }
+                else if(mydirection == "play"){
+                    playaudio();
+                }
             });
             document.getElementById(adder).style.left = "0px";
             document.getElementById(adder).style.opacity = "1";
         });
+        var audio;
         function advance() {
             if (adder <= 6) {
                 adder++;
@@ -197,11 +235,10 @@
             adder--;
             socket.emit('chat message', "rv-" + adder);
         }
-        function playsound() {
-            var audio = document.getElementsByTagName("audio")[0];
-            audio.currentTime = 0;
-            audio.play();
+        function playemit() {
+            socket.emit('chat message', "play-" + adder);
         }
+        
     </script>
 </body>
 
